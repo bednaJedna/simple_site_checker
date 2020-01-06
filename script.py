@@ -66,7 +66,6 @@ def job(interval):
         wipe_shell()
         display_time()
         check_if_docs_uploaded()
-        print("----------\n")
         wait(interval)
 
 
