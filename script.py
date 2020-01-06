@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
+import sys
 from datetime import datetime as dt
 from os import system
+from signal import SIGINT, signal
 from time import sleep
 
 import bs4 as b
@@ -26,6 +28,12 @@ def wait(interval):
 
 def display_time():
     print(dt.now().strftime("%H:%M:%S"))
+
+
+# see https://stackoverflow.com/questions/1112343/how-do-i-capture-sigint-in-python
+def handle_kill(sig, frame):
+    print("CTRL+C pressed.")
+    sys.exit(0)
 
 
 def message_with_emoji(string: str, div: object, emoji=":smile:", replicate=0):
@@ -62,6 +70,7 @@ def check_if_docs_uploaded():
 
 
 def job(interval):
+    signal(SIGINT, handle_kill)
     while True:
         wipe_shell()
         display_time()
