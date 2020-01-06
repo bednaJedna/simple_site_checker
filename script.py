@@ -24,6 +24,10 @@ def wait(interval):
     sleep(interval)
 
 
+def display_time():
+    print(dt.now().strftime("%H:%M:%S"))
+
+
 def message_with_emoji(string: str, div: object, emoji=":smile:", replicate=0):
     em = ""
     if replicate > 0:
@@ -60,7 +64,7 @@ def check_if_docs_uploaded():
 def job(interval):
     while True:
         wipe_shell()
-        print(dt.now().strftime("%H:%M:%S"))
+        display_time()
         check_if_docs_uploaded()
         print("----------\n")
         wait(interval)
