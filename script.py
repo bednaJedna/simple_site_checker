@@ -52,12 +52,14 @@ def get_soup(link):
     return b.BeautifulSoup(get_page_html(link), "lxml")
 
 
-def get_element(soup: object, element_type: str, element_loc: str, counter=3):
+def get_element(soup: object, element_type: str, element_loc: str, counter: int):
     return soup.find_all(element_type, element_loc)[counter]
 
 
-def check_if_docs_uploaded(link):
-    div = get_element(get_soup(link), "div", LOC, 3)
+def check_if_docs_uploaded(
+    link: str, element_type: str, element_loc: str, counter: int
+):
+    div = get_element(get_soup(link), element_type, element_loc, counter)
 
     if TEXT.lower() in div.text.lower().strip():
         message_with_emoji(
@@ -81,7 +83,7 @@ def job():
     while True:
         wipe_shell()
         display_time()
-        check_if_docs_uploaded(LINK)
+        check_if_docs_uploaded(LINK, "div", LOC, 3)
         wait(600)
 
 
