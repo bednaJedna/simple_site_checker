@@ -14,8 +14,8 @@ LOC = "boarddecision-item"
 TEXT = "Zveřejníme v lednu 2020"
 
 
-def get_page_html():
-    return r.get(LINK).text
+def get_page_html(link):
+    return r.get(link).text
 
 
 def wipe_shell():
@@ -48,9 +48,16 @@ def message_with_emoji(string: str, div: object, emoji=":smile:", replicate=0):
     print(e(message, use_aliases=True))
 
 
-def check_if_docs_uploaded():
-    soup = b.BeautifulSoup(get_page_html(), "lxml")
-    div = soup.find_all("div", LOC)[3]
+def get_soup(link):
+    return b.BeautifulSoup(get_page_html(link), "lxml")
+
+
+def get_element(soup: object, element_type: str, element_loc: str, counter=3):
+    return soup.find_all(element_type, element_loc)[counter]
+
+
+def check_if_docs_uploaded(link):
+    div = get_element(get_soup(link), "div", LOC, 3)
 
     if TEXT.lower() in div.text.lower().strip():
         message_with_emoji(
@@ -69,14 +76,14 @@ def check_if_docs_uploaded():
         )
 
 
-def job(interval):
+def job():
     signal(SIGINT, handle_kill)
     while True:
         wipe_shell()
         display_time()
-        check_if_docs_uploaded()
-        wait(interval)
+        check_if_docs_uploaded(LINK)
+        wait(600)
 
 
 if __name__ == "__main__":
-    job(600)
+    job()
