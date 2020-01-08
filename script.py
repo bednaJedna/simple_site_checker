@@ -12,6 +12,8 @@ from emoji import emojize as e
 LINK = "https://www.cnb.cz/cs/menova-politika/br-zapisy-z-jednani/Rozhodnuti-bankovni-rady-CNB-2013-1383828900000/"
 LOC = "boarddecision-item"
 TEXT = "Zveřejníme v lednu 2020"
+# see https://stackoverflow.com/questions/44078888/clickable-html-links-in-python-3-6-shell/53658415#53658415
+SHELL_LINK = f"\u001b]8;;{LINK}\u001b\\CTRL+click HERE to get there.\u001b]8;;\u001b\\"
 
 
 def get_page_html(link):
@@ -44,7 +46,7 @@ def message_with_emoji(string: str, div: object, emoji=":smile:", replicate=0):
     else:
         em = emoji
 
-    message = f"{string}\n{em}\n{div.text}"
+    message = f"{string}\n{em}\n{div.text}\n{SHELL_LINK}"
     print(e(message, use_aliases=True))
 
 
