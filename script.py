@@ -34,7 +34,7 @@ def display_time():
 
 # see https://stackoverflow.com/questions/1112343/how-do-i-capture-sigint-in-python
 def handle_kill(sig, frame):
-    print("CTRL+C pressed.")
+    print("\rTerminated.")
     sys.exit(0)
 
 
