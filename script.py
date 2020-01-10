@@ -21,7 +21,7 @@ def get_page_html(link):
 
 
 def wipe_shell():
-    system("clear")
+    system("cls")
 
 
 def wait(interval):
@@ -51,7 +51,7 @@ def message_with_emoji(string: str, div: object, emoji=":smile:", replicate=0):
 
 
 def get_soup(link):
-    return b.BeautifulSoup(get_page_html(link), "lxml")
+    return b.BeautifulSoup(get_page_html(link), "html.parser")
 
 
 def get_element(soup: object, element_type: str, element_loc: str, counter: int):
